@@ -29,6 +29,7 @@ jobs:
             /home/ubuntu/start.sh
           fi
 
+#comment
 #    steps:
 #      - name: Pull Docker image
 #        run: sudo docker pull batsavid/springboot-store:latest
