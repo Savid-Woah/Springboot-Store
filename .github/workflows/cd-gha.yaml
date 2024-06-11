@@ -24,10 +24,10 @@ jobs:
             sudo docker stop store_app
             sudo docker rm store_app --force
             sudo docker rmi batsavid/springboot-store:latest
-            sudo /home/ubuntu/start.sh
+            sudo /home/ubuntu/update-app.sh
           else
             echo "store_app is not running, starting services with docker-compose..."
             sudo /home/ubuntu/start.sh
           fi
 
-# Attempt 6
+# Attempt 7
