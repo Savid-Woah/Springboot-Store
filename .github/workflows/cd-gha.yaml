@@ -9,20 +9,24 @@ on:
 jobs:
   build:
     runs-on: self-hosted
+    needs: CI Pipeline
     steps:
+
+      - name: Get ENV_FILE from CI Pipeline
+        id: get_env_file
+        uses: actions/github-script@v4
+        with:
+          script: echo "${{ needs.build.outputs.env_file }}"
+
       - name: Pull Docker image
         run: sudo docker pull batsavid/springboot-store:latest
 
       - name: Delete Old springboot_store docker container
         run: sudo docker rm -f springboot_store || true
 
-      - name: Display Content of ENV_FILE
-        run: |
-          cat ${{ secrets.ENV_FILE }}
-
       - name: Start Or Refresh Service
         env:
-          ENV_FILE: ${{ secrets.ENV_FILE }}
+          ENV_FILE: ${{ steps.get_env_file.outputs.result }}
         run: |
           if sudo docker ps --filter "name=store_app" --format "{{.Names}}" | grep -q "store_app"; then
             echo "store_app is running, executing custom logic..."
@@ -34,6 +38,7 @@ jobs:
             echo "store_app is not running, starting services with docker-compose..."
             sudo docker run --env-file ${ENV_FILE} -d -p 8080:8080 --name store_app batsavid/springboot-store:latest
           fi
+
 
 #commentary
 #    steps:
