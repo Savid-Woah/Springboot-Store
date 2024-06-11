@@ -7,13 +7,9 @@ on:
       - completed
 
 jobs:
-
   build:
-
     runs-on: self-hosted
-
     steps:
-
       - name: Pull Docker image
         run: sudo docker pull batsavid/springboot-store:latest
 
@@ -29,6 +25,7 @@ jobs:
           else
             echo "springboot_store is not running, starting services with docker-compose..."
             ./start.sh
+          fi
 
 #    steps:
 #      - name: Pull Docker image
