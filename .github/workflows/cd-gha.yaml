@@ -10,21 +10,17 @@ jobs:
   build:
     runs-on: self-hosted
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
       - name: Pull Docker image
         run: sudo docker pull batsavid/springboot-store:latest
-      - name: Stop and Delete Old springboot_store Docker Container
-        run: |
-          if sudo docker ps --filter "name=store_app" --format "{{.Names}}" | grep -q "store_app"; then
-            echo "Stopping and removing running store_app container..."
-            sudo docker stop store_app || true
-            sudo docker rm -f store_app || true
-          fi
+
+      - name: Delete Old springboot_store docker container
+        run: sudo docker rm -f springboot_store || true
+
       - name: Start Or Refresh Service
         run: |
           if sudo docker ps --filter "name=store_app" --format "{{.Names}}" | grep -q "store_app"; then
             echo "store_app is running, executing custom logic..."
+            sudo docker stop store_app
             sudo docker rm store_app --force
             sudo docker rmi batsavid/springboot-store:latest
             /home/ubuntu/start.sh
@@ -32,10 +28,7 @@ jobs:
             echo "store_app is not running, starting services with docker-compose..."
             /home/ubuntu/start.sh
           fi
-      - name: List files (for debugging)
-        run: ls -la /home/ubuntu
 
-#comment
 #    steps:
 #      - name: Pull Docker image
 #        run: sudo docker pull batsavid/springboot-store:latest
