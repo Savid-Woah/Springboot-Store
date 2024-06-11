@@ -31,3 +31,5 @@ jobs:
             echo "store_app is not running, starting services with docker-compose..."
             sudo /home/ubuntu/start.sh
           fi
+
+# Attempt 2
