@@ -35,6 +35,7 @@ jobs:
       - name: List files (for debugging)
         run: ls -la /home/ubuntu
 
+#comment
 #    steps:
 #      - name: Pull Docker image
 #        run: sudo docker pull batsavid/springboot-store:latest
