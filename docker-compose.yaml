@@ -14,8 +14,7 @@ services:
 
   store_app:
     container_name: store_app
-    image: store_app:latest
-    build: .
+    image: batsavid/springboot-store:latest
     ports:
       - '8080:8080'
     env_file:

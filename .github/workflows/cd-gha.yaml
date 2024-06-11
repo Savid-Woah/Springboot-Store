@@ -23,7 +23,7 @@ jobs:
             sudo docker rm store_app --force
             sudo docker rmi batsavid/springboot-store:latest
           else
-            echo "springboot_store is not running, starting services with docker-compose..."
+            echo "store_app is not running, starting services with docker-compose..."
             ./start.sh
           fi
 
