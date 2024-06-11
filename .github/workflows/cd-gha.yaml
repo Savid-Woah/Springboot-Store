@@ -20,16 +20,16 @@ jobs:
         run: sudo docker rm -f springboot_store || true
 
       - name: Start Or Refresh Service
-        env:
-          ENV_FILE: ${{secrets.ENV_FILE}}
         run: |
           if sudo docker ps --filter "name=store_app" --format "{{.Names}}" | grep -q "store_app"; then
             echo "store_app is running, executing custom logic..."
             sudo docker stop store_app
             sudo docker rm store_app --force
             sudo docker rmi batsavid/springboot-store:latest
-            sudo docker run --env-file /home/ubuntu/.env -d -p 8080:8080 --name store_app batsavid/springboot-store:latest
+            sudo /home/ubuntu/start.sh
+#            sudo docker run --env-file /home/ubuntu/.env -d -p 8080:8080 --name store_app batsavid/springboot-store:latest
           else
             echo "store_app is not running, starting services with docker-compose..."
-            sudo docker run --env-file /home/ubuntu/.env -d -p 8080:8080 --name store_app batsavid/springboot-store:latest
+            sudo /home/ubuntu/start.sh
+#            sudo docker run --env-file /home/ubuntu/.env -d -p 8080:8080 --name store_app batsavid/springboot-store:latest
           fi
