@@ -8,6 +8,7 @@ import springboot_store.product.dto.ProductDTO;
 import springboot_store.product.request.ProductRequest;
 import springboot_store.product.service.ProductService;
 
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -17,6 +18,11 @@ import java.util.UUID;
 public class ProductController {
 
     private final ProductService productService;
+
+    @GetMapping
+    public List<ProductDTO> getAllProducts() {
+        return productService.getAllProducts();
+    }
 
     @GetMapping(path = "get-by-store/{store-id}/{page-number}/{page-size}")
     public Page<ProductDTO> getAllProductsByStore(

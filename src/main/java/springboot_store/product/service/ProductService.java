@@ -16,8 +16,10 @@ import springboot_store.sale.repository.SaleRepository;
 import springboot_store.store.model.Store;
 import springboot_store.store.repository.StoreRepository;
 
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static springboot_store.exception.MsgCode.OOPS_ERROR;
@@ -34,6 +36,14 @@ public class ProductService {
     private final StoreRepository storeRepository;
     private final ProductDTOMapper productDTOMapper;
     private final ProductRepository productRepository;
+
+    public List<ProductDTO> getAllProducts() {
+
+        return productRepository.findAll()
+                .stream()
+                .map(productDTOMapper)
+                .collect(Collectors.toList());
+    }
 
     public Page<ProductDTO> getAllProductsByStore(UUID storeId, Integer pageNumber, Integer pageSize) {
 
