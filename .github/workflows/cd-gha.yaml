@@ -22,6 +22,7 @@ jobs:
             echo "store_app is running, executing custom logic..."
             sudo docker rm store_app --force
             sudo docker rmi batsavid/springboot-store:latest
+            /home/ubuntu/start.sh
           else
             echo "store_app is not running, starting services with docker-compose..."
             /home/ubuntu/start.sh

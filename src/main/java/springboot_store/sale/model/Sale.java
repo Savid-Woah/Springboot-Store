@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import springboot_store.product.model.Product;
+import springboot_store.store.model.Store;
 
 import java.util.Set;
 import java.util.UUID;
@@ -30,6 +31,10 @@ public class Sale {
 
     @Column(name = "final_price", updatable = false, nullable = false)
     private Double finalPrice;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "store_id", updatable = false, nullable = false)
+    private Store store;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
