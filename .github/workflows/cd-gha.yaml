@@ -13,9 +13,27 @@ jobs:
     runs-on: self-hosted
 
     steps:
+
       - name: Pull Docker image
         run: sudo docker pull batsavid/springboot-store:latest
-      - name: Delete Old docker container
+
+      - name: Delete Old springboot_store docker container
         run: sudo docker rm -f springboot_store || true
-      - name: Run Docker Container
-        run: sudo docker run -d -p 8080:8080 --name springboot_store batsavid/springboot-store:latest
+
+      - name: Start Or Refresh Service
+        run: |
+          if sudo docker ps --filter "name=store_app" --format "{{.Names}}" | grep -q "store_app"; then
+            echo "store_app is running, executing custom logic..."
+            sudo docker rm store_app --force
+            sudo docker rmi batsavid/springboot-store:latest
+          else
+            echo "springboot_store is not running, starting services with docker-compose..."
+            ./start.sh
+
+#    steps:
+#      - name: Pull Docker image
+#        run: sudo docker pull batsavid/springboot-store:latest
+#      - name: Delete Old springboot_store docker container
+#        run: sudo docker rm -f springboot_store || true
+#      - name: Run Docker Container
+#        run: sudo docker run -d -p 8080:8080 --name springboot_store batsavid/springboot-store:latest
