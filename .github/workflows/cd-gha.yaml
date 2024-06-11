@@ -13,6 +13,9 @@ jobs:
 
       - uses: actions/checkout@v3
 
+      - name: Set permissions for repository
+        run: sudo chmod -R 777 /home/ubuntu/actions-runner/_work/Springboot-Store/Springboot-Store
+
       - name: Pull Docker image
         run: sudo docker pull batsavid/springboot-store:latest
 
@@ -32,4 +35,4 @@ jobs:
             sudo /home/ubuntu/start.sh
           fi
 
-# Attempt 3
+# Attempt 4
