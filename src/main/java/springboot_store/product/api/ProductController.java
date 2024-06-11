@@ -21,7 +21,7 @@ public class ProductController {
 
     @GetMapping(path = "test")
     public String test() {
-        return "Tierro";
+        return "Meto";
     }
 
     @GetMapping
