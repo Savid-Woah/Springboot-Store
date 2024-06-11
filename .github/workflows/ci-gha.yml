@@ -22,7 +22,3 @@ jobs:
       run: docker build -t batsavid/springboot-store .
     - name: Push to Dockerhub
       run: docker push batsavid/springboot-store:latest
-
-    - name: Output ENV_FILE
-      id: env_file
-      run: echo "::set-output name=env_file::${{ secrets.ENV_FILE }}"
