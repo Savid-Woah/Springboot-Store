@@ -19,6 +19,11 @@ public class ProductController {
 
     private final ProductService productService;
 
+    @GetMapping(path = "test")
+    public String test() {
+        return "Yay";
+    }
+
     @GetMapping
     public List<ProductDTO> getAllProducts() {
         return productService.getAllProducts();
