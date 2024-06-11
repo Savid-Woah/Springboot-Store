@@ -30,4 +30,7 @@ jobs:
             sudo /home/ubuntu/start.sh
           fi
 
-# Attempt 10
+      - name: Remove dangling images
+        run: sudo docker image prune -f
+
+# Attempt 11
