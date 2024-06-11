@@ -31,7 +31,7 @@ jobs:
             sudo docker-compose --env-file ${ENV_FILE} up -d
           fi
 
-#comment
+#commentary
 #    steps:
 #      - name: Pull Docker image
 #        run: sudo docker pull batsavid/springboot-store:latest
