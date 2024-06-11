@@ -28,8 +28,8 @@ jobs:
             sudo docker stop store_app
             sudo docker rm store_app --force
             sudo docker rmi batsavid/springboot-store:latest
-            sudo docker run --env-file ${ENV_FILE} -d -p 8080:8080 --name store_app batsavid/springboot-store:latest
+            sudo docker run --env-file /home/ubuntu/.env -d -p 8080:8080 --name store_app batsavid/springboot-store:latest
           else
             echo "store_app is not running, starting services with docker-compose..."
-            sudo docker run --env-file ${ENV_FILE} -d -p 8080:8080 --name store_app batsavid/springboot-store:latest
+            sudo docker run --env-file /home/ubuntu/.env -d -p 8080:8080 --name store_app batsavid/springboot-store:latest
           fi
