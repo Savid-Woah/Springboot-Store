@@ -1,0 +1,48 @@
+package springboot_store.sale.model;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import springboot_store.product.model.Product;
+
+import java.util.Set;
+import java.util.UUID;
+
+import static org.apache.commons.lang3.RandomStringUtils.randomAlphanumeric;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity(name = "Sale")
+@Table(name = "sales")
+public class Sale {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "sale_id", updatable = false, nullable = false)
+    private UUID saleId;
+
+    @Column(name = "code", updatable = false, nullable = false)
+    private String code;
+
+    @Column(name = "final_price", updatable = false, nullable = false)
+    private Double finalPrice;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "sales_x_products",
+            joinColumns = @JoinColumn(name = "sale_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id")
+    )
+    private Set<Product> products;
+
+    public Sale(Set<Product> products, Double finalPrice) {
+
+        this.code = randomAlphanumeric(10);
+        this.finalPrice = finalPrice;
+        this.products = products;
+    }
+}
