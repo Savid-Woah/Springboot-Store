@@ -2,6 +2,7 @@ package springboot_store.product.api;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import springboot_store.product.dto.ProductDTO;
@@ -12,6 +13,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import static springboot_store.security.constant.PreAuthorizeStatement.FOR_STORE;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("store/api/v1/products/")
@@ -19,16 +22,12 @@ public class ProductController {
 
     private final ProductService productService;
 
-    @GetMapping(path = "test")
-    public String test() {
-        return "Te la meto";
-    }
-
     @GetMapping
     public List<ProductDTO> getAllProducts() {
         return productService.getAllProducts();
     }
 
+    @PreAuthorize(FOR_STORE)
     @GetMapping(path = "get-by-store/{store-id}/{page-number}/{page-size}")
     public Page<ProductDTO> getAllProductsByStore(
             @PathVariable("store-id") UUID storeId,

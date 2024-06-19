@@ -1,10 +1,7 @@
 package springboot_store.product.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import springboot_store.product.request.ProductRequest;
 import springboot_store.sale.model.Sale;
 import springboot_store.store.model.Store;

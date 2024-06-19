@@ -1,10 +1,7 @@
 package springboot_store.sale.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import springboot_store.product.model.Product;
 import springboot_store.store.model.Store;
 
@@ -19,6 +16,7 @@ import static org.apache.commons.lang3.RandomStringUtils.randomAlphanumeric;
 @AllArgsConstructor
 @Entity(name = "Sale")
 @Table(name = "sales")
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Sale {
 
     @Id

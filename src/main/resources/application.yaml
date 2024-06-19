@@ -19,3 +19,9 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
   messages:
     basename: i18n/messages
+
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG

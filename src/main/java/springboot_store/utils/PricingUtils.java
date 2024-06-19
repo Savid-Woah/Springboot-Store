@@ -6,9 +6,9 @@ import java.util.Set;
 
 public class PricingUtils {
 
-    public static Double calculateSaleFinalPrice(Set<Product> productPrices) {
+    public static Double calculateSaleFinalPrice(Set<Product> products) {
 
-        return productPrices.stream()
+        return products.stream()
                 .mapToDouble(Product::getUnitPrice)
                 .sum();
     }
