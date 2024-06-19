@@ -1,4 +1,4 @@
-package springboot_store.security.config.filter;
+package springboot_store.security.filter;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -13,7 +13,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import springboot_store.security.config.service.JwtService;
+import springboot_store.security.service.JwtService;
 import springboot_store.security.token.repository.TokenRepository;
 
 import java.io.IOException;

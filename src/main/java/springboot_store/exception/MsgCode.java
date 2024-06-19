@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 public enum MsgCode {
 
     OOPS_ERROR(500, "oops-error"),
-    INVALID_CREDENTIALS(401, "invalid-credentials"),
+    INVALID_CREDENTIALS(404, "invalid-credentials"),
     UNAUTHORIZED(403, "unauthorized"),
     USER_NOT_FOUND(404, "user-not-found"),
     USER_ALREADY_EXISTS(409, "user-already-exists"),

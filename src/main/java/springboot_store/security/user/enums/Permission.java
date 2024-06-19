@@ -7,10 +7,14 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum Permission {
 
-    ADMIN_CREATE("ADMIN:CREATE"),
-    ADMIN_READ("ADMIN:READ"),
-    ADMIN_UPDATE("ADMIN:UPDATE"),
-    ADMIN_DELETE("ADMIN:DELETE");
+    STORE_CREATE("STORE:CREATE"),
+    STORE_READ("STORE:READ"),
+    STORE_UPDATE("STORE:UPDATE"),
+    STORE_DELETE("STORE:DELETE"),
+    CLIENT_CREATE("CLIENT:CREATE"),
+    CLIENT_READ("CLIENT:READ"),
+    CLIENT_UPDATE("CLIENT:UPDATE"),
+    CLIENT_DELETE("CLIENT:DELETE");
 
     private final String permissions;
 }

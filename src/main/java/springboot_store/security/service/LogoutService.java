@@ -1,4 +1,4 @@
-package springboot_store.security.config.service;
+package springboot_store.security.service;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

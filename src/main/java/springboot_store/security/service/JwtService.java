@@ -1,4 +1,4 @@
-package springboot_store.security.config.service;
+package springboot_store.security.service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -30,6 +30,10 @@ public class JwtService {
 
     private final TokenRepository tokenRepository;
 
+    private static final String ROLE = "role";
+    private static final String USER_ID = "user_id";
+    private static final String ACCESS_TOKEN = "access_token";
+
     private Key getSigningKey() {
 
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
@@ -54,7 +58,14 @@ public class JwtService {
 
     public String extractUsername(String token) {
 
-        return extractClaim(token, Claims::getSubject);
+        return Jwts
+                .parserBuilder()
+                .setSigningKey(getSigningKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .get(USER_ID)
+                .toString();
     }
 
     private Date extractExpirationDate(String token) {
@@ -77,10 +88,9 @@ public class JwtService {
     public String generateToken(User user) {
 
         Map<String, Object> extraClaims = new HashMap<>();
-        extraClaims.put("user_id", user.getUserId().toString());
-        extraClaims.put("role", user.getRole());
-        String subject = "Access_Token";
-        return generateToken(extraClaims, subject);
+        extraClaims.put(USER_ID, user.getUserId().toString());
+        extraClaims.put(ROLE, user.getRole());
+        return generateToken(extraClaims, ACCESS_TOKEN);
     }
 
     private boolean isTokenExpired(String token) {
@@ -98,9 +108,5 @@ public class JwtService {
 
         Token token = new Token(jwt, user);
         tokenRepository.save(token);
-    }
-
-    public void revokeAllUserTokens(User user) {
-
     }
 }

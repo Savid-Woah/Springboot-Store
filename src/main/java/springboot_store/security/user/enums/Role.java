@@ -15,12 +15,21 @@ import static springboot_store.security.user.enums.Permission.*;
 @RequiredArgsConstructor
 public enum Role {
 
-    ADMIN(
+    STORE(
             Set.of(
-                    ADMIN_CREATE,
-                    ADMIN_READ,
-                    ADMIN_UPDATE,
-                    ADMIN_DELETE
+                    STORE_CREATE,
+                    STORE_READ,
+                    STORE_UPDATE,
+                    STORE_DELETE
+            )
+    ),
+
+    CLIENT(
+            Set.of(
+                CLIENT_CREATE,
+                CLIENT_READ,
+                CLIENT_UPDATE,
+                CLIENT_DELETE
             )
     );
 

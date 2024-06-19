@@ -9,8 +9,7 @@ import org.springframework.stereotype.Service;
 import springboot_store.exception.BackendException;
 import springboot_store.security.auth.request.LoginRequest;
 import springboot_store.security.auth.request.RegisterStoreRequest;
-import springboot_store.security.config.service.JwtService;
-import springboot_store.security.user.enums.Role;
+import springboot_store.security.service.JwtService;
 import springboot_store.security.user.model.User;
 import springboot_store.security.user.request.UserRequest;
 import springboot_store.security.user.service.UserService;
@@ -20,9 +19,10 @@ import springboot_store.store.service.StoreService;
 import java.util.Map;
 
 import static org.springframework.http.HttpStatus.CREATED;
-import static springboot_store.exception.MsgCode.OOPS_ERROR;
+import static springboot_store.exception.MsgCode.*;
 import static springboot_store.response.handler.ResponseHandler.generateResponse;
 import static springboot_store.response.response.ResponseMessage.STORE_REGISTERED;
+import static springboot_store.security.user.enums.Role.STORE;
 
 @Service
 @Transactional
@@ -40,7 +40,7 @@ public class AuthService {
 
             String email = loginRequest.getEmail();
             String password = loginRequest.getPassword();
-            User user = userService.getUserByEmail(email).orElseThrow(() -> new BackendException(OOPS_ERROR));
+            User user = userService.getUserByEmail(email).orElseThrow(() -> new BackendException(USER_NOT_FOUND));
             UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(email, password);
             authenticationManager.authenticate(authToken);
             String jwt = jwtService.generateToken(user);
@@ -48,7 +48,7 @@ public class AuthService {
             return jwt;
 
         } catch (AuthenticationException exception) {
-            throw new BackendException(OOPS_ERROR);
+            throw new BackendException(INVALID_CREDENTIALS);
         }
     }
 
@@ -56,7 +56,7 @@ public class AuthService {
 
         UserRequest userRequest = registerStoreRequest.getUserRequest();
         StoreRequest storeRequest = registerStoreRequest.getStoreRequest();
-        User user = userService.createUser(userRequest, Role.ADMIN);
+        User user = userService.createUser(userRequest, STORE);
         storeService.createStore(storeRequest, user);
 
         return generateResponse(null, CREATED, STORE_REGISTERED);
